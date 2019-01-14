@@ -1,4 +1,3 @@
-# tesi_magistrale
+# Competition_for_light_in_a_phytoplankton_population
 This directory contains the tex files and my Master's thesis for the Theoretical Physics degree. Following the [works by Huisman et al.](https://www.journals.uchicago.edu/doi/abs/10.1086/338511), an alternative, stochastic model is considered to model the phytoplankton growth in blooming conditions (i.e. non-limiting nutrients), with an emphasis on the light-driven growth of new cells.
 The code I developed can be found at https://github.com/GabrieleLabanca/stochastic_plankton. Other code, developed by the research group and thus not public, concerns the solution of Navier-Stokes equations to model the transport of plankton; some code used for the analysis of the results is found at https://github.com/GabrieleLabanca/turbolag_util. 
-# Competition_for_light_in_a_phytoplankton_population
