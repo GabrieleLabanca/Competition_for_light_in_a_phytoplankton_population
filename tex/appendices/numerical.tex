@@ -1,0 +1,74 @@
+%\subsection{Random number generator} \label{subsec:rng}
+%By G. Boffetta. rann, gaus
+\chapter{Numerical methods}
+\section[Runge-Kutta]{Runge-Kutta algorithms}
+Runge-Kutta (RK) algorithms are a family of algorithms designed to solve ordinary differential equations of the form
+\[ y' \coloneqq \frac{\dd y(t)}{\dt} = f(t,y(t)) \]
+The exact solution of the problem is \(y_n=y(t_n)\) where \( t_n = t_0+n\mathrm{d}t\) is the discretized time; instead, \(u_n\) is the solution obtained with the algorithm. The reference for this section is \autocite{quarteroni2010numerical}
+A RK algorithm is defined as follows: 
+\[ u_{n+1} = u_n + h \sum_{i=1}^s b_i K_i\]
+where
+\begin{equation} \label{eq:RK_Ki} 
+    K_i = f(t_n+c_i h, u_n+h \sum_{j=1}^s a_{ij} K_j)
+\end{equation}
+and
+\begin{equation} \label{eq:RK_ci}
+    c_i = \sum_{j=1}^s a_{ij} 
+\end{equation}
+It is clear from \autoref{eq:RK_Ki} that the $K_i$ are in principle defined implicitly (i.e. a linear system must be solved in order to find them); however, imposing the condition that \( a_{ij} = 0 \) for \( j\geq i\) makes the system \textit{explicit}, since using \autoref{eq:RK_ci}  
+\[ K_1 = f(t_n,u_n) \]
+which is known, $K_2$ is function of $K_1$ only, $K_3$ is function of $K_2$ and $K_1$ and so on, such that no matrix inversion is necessary.
+
+The number $s$ is said to be the number of \textit{stages} of a RK algorithm. For an explicit algorithm, 
+\begin{quotation}
+The order of an $s$-stage explicit RK method cannot be greater than $s$. Also, there do not exist $s$-stage explicit RK methods with order $s$ if $s \geq 5$.
+\end{quotation}
+
+
+\subsection{Derivation of RK2 algorithm}
+Given a $s$-stage RK algorithm, one can tune the parameter to make it of order equal to that of the algorithm be $s$ (or $s+1$, for $s>4$) by Taylor-expanding $u_{n+1}$ and $y_{n+1}$ until order $s-1$ and imposing that the coefficient be the equal. The procedure can be illustrated deriving a second-order RK algorithm (RK2).
+
+Since the $K_i$ system is explicit, using \autoref{eq:RK_ci}
+\[ K_1 = f_n \]
+and 
+\[ K_2 = f(t_n+hc_2, u_n + h c_2 f_n) \]
+Following the notation in \autocite[chapter 11.8]{quarteroni2010numerical}, 
+\[ f_n \coloneqq f(t_n,u_n) \equiv f(t_n,y_n) \;\;;\;\;\; f_{n,t} \coloneqq \frac{\partial f}{\partial t}|_{(t_n,y_n)} \;\;;\;\;\;
+f_{n,y} \coloneqq \frac{\partial f}{\partial y}|_{(t_n,y_n)}\]
+Expanding near $f_n$
+
+\[ K_2 \sim f_n + h c_2 (f_{n,t} + f_nf_{n,y}) + \mathcal{O}(h^2) \]
+so that
+\[ u_{n+1} = u_n + h(b_1K_1 + b_2K_2) \]
+\[   = u_n + hb_1 f_n + b_2 h^2 c_2 (f_{n,t} + f_n f_{n,y} ) \]
+while for the exact solution
+\[ y_{n+1} = y_n + hy_n' +\frac{h^2}{2}y_n'' +\mathcal{O}(h^3) \]
+\[  = y_n + h f_n + \frac{h^2}{2} (f_{n,t} + y_n' f_{n,y}) \]
+\[ = y_n + h f_n + \frac{h^2}{2} (f_{n,t} + f_n f_{n,y}) \]
+and matching the coefficients the following conditions are derived:
+\begin{equation}
+    \begin{cases}
+        b_1+b_2 = 1 & \\
+        b_2c_2 = \frac{1}{2} & \\
+    \end{cases}
+\end{equation}
+In particular, choosing 
+\[ b_1 = -1 \;\;;\;\;\; b_2 = 1 \;\;;\;\;\; c_2 = \frac{1}{2} \]
+it results
+\begin{equation} \label{eq:RK2}
+u_{n+1} = u_n + \frac{h}{2} f(t_n + \frac{h}{2},
+u_n + \frac{h}{2} f_n) 
+\end{equation}
+Defining
+\begin{equation}
+    \begin{cases}
+        t_{n+1/2} \coloneqq t_n + \frac{h}{2} & \\
+        u_{n+1/2} \coloneqq u_n + \frac{h}{2} f_n  & \\
+    \end{cases}
+\end{equation}
+\autoref{eq:RK2} can be rewritten as
+\begin{equation} \label{eq:RK2_halfstep}
+    u_{n+1} = u_n + \frac{h}{2} f(t_{n+1/2},u_{n+1/2})
+\end{equation}
+
+

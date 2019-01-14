@@ -1,0 +1,15 @@
+\addcontentsline{toc}{chapter}{Conclusions}
+\section*{Conclusions}
+This work has led to the developement of two models which address the problem of predicting the phyplankton blooms. In \autoref{sec:previous}, the preexisting works have been described and systematized, providing a solid mathematical frame to the following numerical modelling. 
+
+In \autoref{sec:stoc}, a simple stochastic model, implementing a random walk motion, has been described, which nevertheless allows to reproduce the results by \autocite{Huisman2002HowPersist} related to the subset of parameters in the D-z-v space where a bloom can occur. This model can be regarded as a fast way to explore new conditions, forerunner of a more complete analysis: beyond simulating the conditions of no-flux traditionally modeled in literature, the conditions of an absorbing bottom layer are considered and interpreted (\autoref{sec:stoc_res_abs}). \\
+Trying to give some physical correspondences to the results, some cases are considered:
+\begin{description}
+    \item[Shallow waters] They are modeled with no-flux boundary conditions and small values of $z$. Blooming is always possible.
+    \item[Mixed layer] For a well-mixed layer, the no-flux conditions offer a good description. If the depth of the ML is sufficiently large, only for intermediate values of $D$ the blooming is possible.
+    \item[Deep waters] When the no-flux conditions are no more an acceptable deal, absorbing conditions must be imposed. For example, supposing to have a very shallow ML, the small-$z$ side of \autoref{fig:stoc_refl_all_pop} tells that no bloom is possible; for very deep ML, instead, the blooming conditions are equivalent to those obtained imposing no-flux boundaries.
+\end{description}
+
+In \autoref{sec:lag}, a more complete model has been tested and used to better describe the features of the plankton distribution in blooming conditions. A Lagrangian approach, which solves the Navier-Stokes equation with a pseudo-spectral method (\autoref{sec:pseudospectral}), has allowed a more complete understanding of how the particles distribute in space (\autoref{sec:lag_res_profile}, \autoref{sec:lag_res_random}) and how the growth in number is coherent with the light availability (\autoref{sec:lag_res_number}). 
+
+Further work will concern the competition for light between two or more phytoplankton populations, in order to reproduce the results in \autocite{Huisman2004ChangesSpecies} and consider more complex settings.

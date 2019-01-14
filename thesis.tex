@@ -1,0 +1,63 @@
+\documentclass{report}
+\input{preamble.tex}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+        \Huge
+        \textbf{Competition for light in a phytoplankton population}
+        \vspace{0.5cm}
+        
+        \vspace{1.5cm}
+        \textbf{Gabriele Labanca}
+        \vfill
+        Laurea Magistrale in Fisica Teorica \\ 
+        \vspace{0.8cm}
+        
+        
+           \includegraphics[width=0.4\textwidth]{img/logo_unito}
+        
+        
+        \Large
+        Dipartimento di Fisica\\
+        Università degli Studi di Torino
+    
+        \vspace{0.8cm}
+        \large
+        Supervisor: Filippo De Lillo \\
+        Co-supervisor: Matteo Borgnino \\
+        Opponent: Miguel Onorato
+    \end{center}
+\end{titlepage}
+
+\begin{abstract}
+    Phytoplankton population dynamics are an important topic of the current research worldwide. This group of microorganisms constitutes a fundamental resource, producing at least half of the oxygen in the atmosphere; moreover, in some cases the overgrowth of some species can be harmful to animals and even humans.
+    It is thus important to understand the mechanisms which regulate its growth. This thesis focuses on the role of fluid dynamics in the formation of ``blooms'' of phytoplankton in eutrophic conditions, where the growth is limited by light availability. Implementing the reaction dynamics of the phytoplankton, a one-dimensional stochastic model is developed to explore different conditions. A simulation of the Navier-Stokes equations is then used to describe in more detail the dynamics of bloom formation. 
+\end{abstract}
+
+\vspace{1.5cm}
+This thesis concludes my Master's degree course at Università degli Studi di Torino, in the years 2016-2018. If in need to contact me, my e-mail is \url{gabrielelabanca@gmail.com}.
+
+\tableofcontents
+
+
+\include{tex/references}
+\include{tex/1D_model}
+\include{tex/3D_model}
+\include{tex/conclusions}
+\include{tex/credits}
+\appendix
+\include{tex/appendices}
+
+
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\printbibliography
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+
+
+
+\end{document}

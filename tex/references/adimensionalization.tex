@@ -1,0 +1,51 @@
+\section{Dimensional analysis} \label{sec:adimensionalization}
+In order to compare different models, it is useful to rewrite \autoref{eq:generic} in terms of non-dimensional quantities: here two possible way of doing it are presented. If the auto-shading effect is taken into account, when comparing the results with a 3-dimensional model the problem of the scaling of $k_{ss}$ has to be addressed.
+
+In \autocite{Shigesada1981AnalysisWaters}, the adimensionalization is performed starting from $\lambda$, which is used to adimensionalize $t$
+\footnote{This is analogous to the definition \(x=\frac{\lambda}{v}z\), leading to
+\[ \partial_\tau n = \delta \partial_x^2 n - \partial_x n + (f - \gamma) n \]
+with \( \delta = \frac{\lambda D}{v^2} = \omega^{-2}\). }:
+\[ z \rightarrow x = \sqrt{\frac{\lambda}{D}} z ; \;\;\; t \rightarrow \tau = \lambda t ; \;\;\; \omega = \frac{v}{\sqrt{\lambda D}};
+\;\;\; \gamma = \frac{\mu}{\lambda} \]
+leading to
+\[ \partial_\tau n = \partial_x^2 n - \omega\partial_x n + (f - \gamma) n \]
+This rescaling also effects the exponent of $I = I_0 e^{-\eta}$: 
+\[ \eta = k_{bg}\sqrt{\frac{D}{\lambda}}x + \int_0^x \rho(q) \mathrm{d}q  \]
+where \( \rho(x) = k_{ss} \sqrt{\frac{\lambda}{D}} n(z(x)) \). Since in the paper the background turbidity is neglected, no rescaling is done of $k_{bg}$ \footnote{One could define \( \kappa = k_{bg} \sqrt{\frac{D}{\lambda}} \) leading to
+\[  \eta = \kappa x + \int_0^x \rho(q) \mathrm{d}q  \]}.
+Finally, to adimensionalize the light intensity, the paper simply defines a generic function $f(I/I_m)$ where $I_m$ is a characteristic light intensity.
+
+In \autocite{Ebert2001CriticalBlooms} the adimensionalization is performed starting from the exponent of $I=I_0 e^{-\eta}$, which with the following substitution \footnote{The parameter $\alpha$ comes from \( f = I^\alpha \)}:
+\[ z \rightarrow x= \alpha k_{bg} z ; \;\;\; t \rightarrow \tau = D \alpha^2 k_{bg}^2 t ; \;\;\; \rho = \frac{k_{ss}}{k_{bg}}n \]
+becomes
+\[ \eta = x + \int_0^x \rho(q) \mathrm{d}q \]
+Defining
+\[A = \frac{\lambda I_0}{D \alpha^2 k_{bg}^2} ;\;\;\; B = \frac{\mu}{\lambda I_0} ; \;\;\; C=\frac{v}{D \alpha K_{bg}} \]
+the complete equation reads
+\[ \partial_\tau \rho = \partial_x^2 \rho - C \partial_x\rho + A[ f - B ] \rho \]
+where \( f(I/I_0) = \left(\frac{I}{I_0}\right)^\alpha \) which is dimensionless.
+
+
+In this thesis the adimensionalization follows closely the one by \autocite{Ebert2001CriticalBlooms}. A difference comes up using the variable \( \phi = \frac{H}{I_0} \), which with a Michaelis-Menten production function leads to
+\[ f(I) = \frac{1}{1+\phi e^{-\eta}} \]
+Putting it all together, from now on the dimensionless form of the equation will be
+\[  
+\partial_\tau \rho = \partial_x^2 \rho - C \partial_x \rho + A \left(
+\left( 1 +\phi e^{\kappa x + \int_0^x \rho(q) \mathrm{d}q} \right)^{-1}
+ - \gamma\right) \rho
+\]
+where
+\[ z \rightarrow x= k_{bg} z ; \;\;\; t \rightarrow \tau = D k_{bg}^2 t ; \;\;\; \rho = \frac{k_{ss}}{k_{bg}}n \]
+\[A = \frac{\lambda I_0}{Dk_{bg}^2} ;\;\;\; B = \frac{\mu}{\lambda I_0} ; \;\;\; C=\frac{v}{D K_{bg}} \]
+
+\subsection{Self-shading parameter}
+In order to compare the results with other models and to understand how this model relates to a 3-dimensional one, it is instructive to look at the self-shading part of $\eta$:
+\[ \eta_{ss} = k_{ss} \int_0^h n(z) \mathrm{d}z \]
+Here a linear density is used, which relates to the spacial density as follows: \( n(z) = \int_{l_x l_y} n(x,y,z) \mathrm{d}x \mathrm{d}y \). Moreover, since the integral has the dimension of a cell unit, \( [k_{ss}] = cell^{-1} \). Considering instead a more general, 3-dimensional situation,
+the interesting integral is 
+\[\int_0^h \int_{l_x l_y} n(x,y,z) \,\dd x \dd y \dd z\]
+where $l_x$ and $l_y$ are the horizontal sizes of the grid (see \autoref{sec:lag_part_react}). Since the comparison is made with a one-dimensional density, the following approximation is made: \( n(x,y,z) \sim L_x L_y <n(x,y,z)>_{\hat{x},\hat{y}} = n(z) \), by which it holds
+\[\int_0^h \int_{l_x l_y} n(x,y,z) \,\dd x \dd y \dd z \sim l_x l_y \int_0^h n(z) \dd z \]
+so that, defining \( \tilde{k_{ss}} \coloneqq \frac{k_{ss}}{l_x l_y} \), the following expression results for $\eta_{ss}$:
+\[ \eta_{ss} = \tilde{k_{ss}} \int_0^h \int_{l_x l_y} n(x,y,z)\, \mathrm{d}x \mathrm{d}y\mathrm{d}z \]
+where clearly \( [\tilde{k_{ss}}] = \frac{L^2}{cell} \) offers now a physical interpretation, namely representing the effective shading area of a cell unit. The meaning of this non-dimensional parameter is understood when considering that, for a bigger grid cell, more particles will be counted in the integral, making it necessary to rescale by the area $l_xl_y$.

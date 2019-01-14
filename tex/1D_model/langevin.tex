@@ -1,0 +1,43 @@
+\label{sec:peculiar_1D}
+The first goal of this work has been to implement a cellular-based numerical model which could reproduce the results obtained in \autocite{Huisman2002HowPersist}. A 1-dimensional Langevin equation has been used to model the motion of the cells, while the mean rates of birth and death have been represented as probabilities and the production is modeled as a stochastic process. \\
+Although this model is expected to agree with the reference work, some differences are present, that could cause an imperfect correspondence:
+\begin{itemize}
+\item this model is stochastic, while in the reference work a deterministic equation is solved numerically;
+\item in the reference model the cells density is a continuous quantity, directly dependent on a differential equation, while here the stochastic equation regulates the motion and reaction of a single cell, the numerical density being a derived and discrete quantity.
+\end{itemize}
+
+\section{The model}
+The following equation models the motion of the particles:
+\begin{equation} \label{eq:lang-difadv}
+  \partial_t x_i(t) = v_i + \eta(\zeta)
+\end{equation}
+where $x_I$ is the position of a given particle, $v$ is the sinking velocity of that article and $\eta$ takes into account the diffusive transport resulting from turbulence;
+$\zeta$ is a ``rapidly varying, highly irregular function'' so to match the requirements for \autoref{eq:lang-difadv} to be a Langevin equation; for details refer to \autocite[chapter 4.1]{gard-hand}.
+To achieve the required conditions of $\zeta$, the following properties should be verified:
+\[ \left<\zeta(t)\right> = 0 \;\;\; \left<\zeta(t)\zeta(t')\right>=\delta(t-t') \]
+A random number generator is used to simulate $\zeta$.%, the details of which can be read in \autoref{subsec:rng}.
+\autoref{eq:lang-difadv} is integrated with a finite-differences Eulerian method:
+\begin{equation} \label{eq:eul-difadv}
+  x_i^{n+1} = x_i^n + v\mathrm{d}t + \sqrt{2D\cdot\mathrm{d}t}\zeta \;.
+\end{equation}
+where the presence of the square root can be explained considering the equation as a sum of two terms, one representing a uniform motion, the other a Brownian motion, for which the following equation holds \autocite[chapter 1]{berg1993random}:
+\[ \langle x^2 \rangle ^{1/2} = (2Dt)^{1/2} \]
+
+\label{sec:stoc_lang_prod}
+To model the mean production rate of the population, the death and birth rates are converted in the probability for a single cell to die or reproduce. With the same meaning as in \autoref{sec:math-model},
+\begin{equation} \label{eq:prod_prob}
+  P_{birth} = \lambda \frac{I(z,t)}{h+I(z,t)} \mathrm{d}t \;\;\;;\;\;\; P_{death} = \mu\mathrm{d}t 
+\end{equation}
+At each step, using the same random number generator as above, the probability for a cell to die is evaluated: in case of death, it is removed, otherwise it can reproduce, evaluating the probability of reproduction. A discussion is required for what concerns the numerical evaluation of the light intensity, refer to \autoref{sec:model:birthrate}.
+
+
+\label{sec:stoc_boundaries}
+Two kinds of boundary conditions have been considered:
+\begin{itemize}
+  \item \textit{no-flux} (i.e. closed boundaries)
+  \item \textit{absorbing} 
+\end{itemize}
+There are two boundaries: the "top" ($0$ in the simulations) of the water column and its "bottom" ($z_{max}$ in the simulations). The top has always been considered a closed boundary, while either no-flux or absorbing boundary conditions has been used for the bottom. The physical meaning of such boundaries is the following: a no-flux condition represents a closed surface, e.g. the surface of water or the bottom of the ocean; an absorbing boundary represents a surface from beyond which no particle can come back, e.g. the lower limit of the mixed layer\footnote{In a numerical situation, not coming back is implemented as being removed from the simulation; trespassing the absorbing boundary is thus virtually the same as dying.}. For the numerical implementation of no-flux conditions see \autoref{sec:no-flux-test}.
+
+
+

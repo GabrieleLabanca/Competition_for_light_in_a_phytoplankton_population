@@ -1,0 +1,29 @@
+\section{Particles}
+
+\subsection{Advecting particles} \label{sec:lag_part_adv}
+In order to model the advection of particles, they are considered as perfectly transported by the flow velocities, then their position is corrected with a sinking speed term independent from the previous motion. Since the Navier-Stokes equations are solved on a grid (\autoref{sec:pseudospectral}), while the particles' positions are continuous, a linear interpolation is done to get an approximate value starting from the ones on the grid points surrounding the particle: for a generic function on a one-dimensional grid one can write ($x_0$ is the first grid point below the particle's position $x$, and $\delta$ is the grid increment)
+\[ f(x) = (x_0+\delta - x)f(x_0) + (x-x_0)f(x_0+\delta) \]
+that is 
+\begin{equation}
+    f(x) = \sum_{l=0,1} |x_0+l\delta - x|f(x_0+(1-l)\delta)
+\end{equation}
+Moving on to three dimensions, the equation remains the same:
+\begin{equation}
+f(\vec{x}) =
+           \sum_{l,m,n=0,1} 
+        \left| \vec{x_0}+(l\hat{i}+m\hat{j}+n\hat{k})\delta - x \right | \cdot 
+        f\left(\vec{x_0}+
+        \left( (1-l)\hat{i} + (1-m)\hat{j} + (1-n)\hat{k} \right))\delta\right)
+\end{equation}
+
+
+
+\subsection{Birth and death reaction} \label{sec:lag_part_react}
+The reproduction and loss rates are implemented in a similar way as \autoref{sec:stoc_lang_prod}, with some differences for what concerns the integration of cell density. The exact implementation would require to attribute to each particle an effective area of shading, which should then be intersected with the considered particle's one, resulting in a prohibitive computational cost. The simpler implementation would be, similarly to the 1-dimensional model, to sum instead all the upper particles' contribution, resulting though in a very unrealistic setting.
+The implementation which has been used is an intermediate step, summing all the particles in the given grid cell; this integral is computed at each grid point, then interpolated for each particle, as in \autoref{sec:model:birthrate}. \\
+When a cell reproduces, the daughter cell will be generated at a slightly different position from the parents' one, in order to avoid having more than one cell following the same flow-line. 
+
+
+\subsection{Boundary conditions}
+While the boundary conditions on the fluid flow are implemented inside the pseudo-spectral code, for the particles a specific routine is required:
+if a particle is produced above the top, the reflective conditions are implemented re-generating a random position around the parent's one; if a particle is instead produced below the bottom, the absorbing conditions are implemented removing it from the array.

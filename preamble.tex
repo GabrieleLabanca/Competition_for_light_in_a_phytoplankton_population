@@ -1,0 +1,47 @@
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{mathtools} % \coloneqq
+\usepackage{amssymb}
+
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref} % url can gobreak line
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\usepackage[
+backend=biber,
+style=authoryear,
+citestyle=authoryear-comp
+]{biblatex}
+\addbibresource{bib/mendeley.bib} 
+\addbibresource{bib/books.bib} 
+\addbibresource{bib/complementary.bib} 
+
+\usepackage[section]{placeins}
+\usepackage{float}
+
+\usepackage[greek,english]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{csquotes}
+
+
+\setcounter{tocdepth}{3}
+\usepackage{wrapfig}
+
+\usepackage{color}
+\newcommand{\todo}[1]{\colorbox{yellow}{#1}}
+
+\usepackage{afterpage} %\afterpage{\clearpage}
+
+\usepackage{hyperref} %autoref
+%\renewcommand{\tableautorefname}{}
+%\renewcommand{\sectionautorefname}{}
+%\renewcommand{\subsectionautorefname}{}
+%\renewcommand{\subsubsectionautorefname}{}
+%\renewcommand{\paragraphautorefname}{}
+%\renewcommand{\equationautorefname}{}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\dt}{\mathrm{d}t}
+

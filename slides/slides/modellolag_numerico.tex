@@ -1,0 +1,22 @@
+\begin{frame}
+  \frametitle{Modello a trasporto lagrangiano}
+
+  \begin{columns}
+
+    \column{.5\textwidth}
+    Incomprimibilità: \( u = \mathrm{rot} b\) con gauge \( \mathrm{div} b = 0 \).
+
+    \[ \partial_t b_i - \mathrm{rot}^{-1}(u\times\omega) = \nu\Delta b_i + f_b \] 
+
+
+
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item NLT calcolato nello spazio fisico ("pseudospettrale").
+      \item Integrazione con Runge-Kutta.
+      \item Antialiasing: taglio a \( \frac{2}{3}k_{max} \).
+    \end{itemize}
+
+  \end{columns}
+\end{frame}
+

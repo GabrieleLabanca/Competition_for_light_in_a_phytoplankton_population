@@ -1,0 +1,34 @@
+\section{Diffusivity}
+
+While in the Huisman's model, as well as in the Langevin-like model, $D$ is a given parameter, the Navier-Stokes equations do not contain such a well-defined parameter: $\nu$, the kinematic viscosity, represents a somehow similar concept, but acts on a different scale and has a different meaning. Different approaches were attempted to obtain an estimate of an effective turbulent-diffusive factor.
+%The definition of diffusivity can be taken as following, considering an ensemble of particles diffusing in a time $t$:
+%\begin{equation} \label{eq:diffu_def}
+%  <\delta r ^2> = 2Dt
+%\end{equation}
+%where $\delta r$ is the distance from the starting point of each particle and $<...>$ means averaging over an ensemble.
+%Considering this, is simple to print the values of $<\delta r^2>$ and $t$ during a run of the program which solves the Navier-Stokes equations. This allows one to fit the points and find the effective $D$. However, the resulting curve is not a perfect line, as the definition would require: initially, the path travelled by a particle is ballistic, following the underlying flow; after a while, the auto-correlation fades and the diffusive behaviour is asymptotically met. 
+
+\subsection{Based on dimensionality} \label{sec:diff_dimens}
+The energy dissipation $\epsilon$ is dimensionally related to other physical quantities (see \autoref{sec:lag_intro}):
+\[ \epsilon = \frac{U^2}{L} \]
+where $U$ represents a speed and $L$ a characteristic length. Using this approach, the characteristic time of the turbulent system is
+\[ \tau = \frac{L}{U} = \frac{U^2}{\epsilon} \]
+$U$ is in this case interpreted as $u_{RMS}$, defined as \( u_{RMS}^2 = \frac{ \sum_{i={x,y,z}} u_i^2 }{3} \).
+Doing the same dimensional analysis with $D$, it results
+\[ D = u_{RMS}^2 \tau = \frac{u_{RMS}^4}{\epsilon} \]
+However, since the diffusivity of interest in this context is along the vertical direction, a more useful estimate is given by
+\[ D_z = u_z^2 \tau \]
+
+
+
+\subsection{Based on the flux} \label{sec:taylordiff}
+Following \autocite{Taylor2016TurbulentEddy}, if a particle is perfectly transported by the turbulence, at a given time the flux is
+\[ J(z) = D\partial_z n \]
+which can also be expressed in function of the average speed at that depth:
+\[ J(z) = \bar{v}(z) n(z) \]
+where $\bar{v}$ is the average vertical velocity at a given depth $z$.
+From these considerations results
+\[ D(z) = \frac{\bar{v} n}{\partial_z n} \]
+Rigorously speaking, this makes sense only if ensemble-averaged quantities are considered (in the condition of steady-state), so the equation must be regarded as
+\[ D(z) = \frac{ <\bar{v}(z,t) n(z,t)>}{<\partial_z n(z,t)>} \]
+where \(<[\bullet(t)]> := \frac{1}{T} \int_{t_0}^{t_0+T} [\bullet(t)] \mathrm{d}t \), $t_0$ is a freely chosen time after reaching the steady-state, $T$ is a time much bigger than characteristic times, and the ergodicity of the system is used to substitute the ensemble average with a time average. In the cited work by Taylor, no time average is performed, meaning that its estimate of diffusivity is not rigorous, nevertheless it is the only possible estimate since no steady-state is reached.
